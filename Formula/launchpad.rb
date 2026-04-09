@@ -1,33 +1,40 @@
+class GhAuthDownloadStrategy < CurlDownloadStrategy
+  def initialize(url, name, version, **meta)
+    super
+    @token = `gh auth token 2>/dev/null`.chomp
+    raise "Not authenticated with gh CLI. Run: gh auth login" if @token.empty?
+  end
+
+  def _fetch(url:, resolved_url:, timeout:)
+    curl_download resolved_url,
+                  "--header", "Authorization: Bearer #{@token}",
+                  "--header", "Accept: application/octet-stream",
+                  "--header", "X-GitHub-Api-Version: 2022-11-28",
+                  to: temporary_path,
+                  timeout: timeout
+  end
+end
+
 class Launchpad < Formula
   desc "Launchpad CLI — deploy apps to the PaaS platform"
   homepage "https://github.com/DND-IT/launchpad"
-  version "0.4.6"
+  version "0.4.7"
 
   depends_on "gh"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.6/launchpad_0.4.6_darwin_arm64.tar.gz"
-      sha256 "6eb85b2e4a80d8b04f0cb758e37417770d2c4d26dbf18c52196a50ce9421ef0a"
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.7/launchpad_0.4.7_darwin_arm64.tar.gz",
+          using: GhAuthDownloadStrategy
+      sha256 "6d4b6b2ec53503ce8a10b2f32460a774a659dc6d452852a7c5bb1e5716895dcc"
     else
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.6/launchpad_0.4.6_darwin_amd64.tar.gz"
-      sha256 "ac740782f4bb27069b46897080a9cfc1854cfcd848005bb51f7b148f4bfa03e7"
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.7/launchpad_0.4.7_darwin_amd64.tar.gz",
+          using: GhAuthDownloadStrategy
+      sha256 "97ec268c4d4a52f41356a09cedb6bab9f5ce104f301d0ee8e4bee73b75afa659"
     end
   end
 
   def install
-    token = Utils.safe_popen_read("gh", "auth", "token").chomp
-    raise "Not authenticated with gh CLI. Run: gh auth login" if token.empty?
-
-    arch = Hardware::CPU.arm? ? "arm64" : "amd64"
-    filename = "launchpad_#{version}_darwin_#{arch}.tar.gz"
-
-    system "gh", "release", "download", version,
-           "--repo", "DND-IT/launchpad",
-           "--pattern", filename,
-           "--clobber"
-
-    system "tar", "xzf", filename
     bin.install "launchpad"
   end
 
