@@ -25,7 +25,7 @@ class Launchpad < Formula
   desc "Launchpad CLI — deploy apps to the PaaS platform"
   homepage "https://github.com/DND-IT/launchpad"
   url "https://github.com/DND-IT/launchpad", using: GhReleaseDownloadStrategy
-  version "0.4.11"
+  version "0.5.0"
 
   depends_on "gh"
 
