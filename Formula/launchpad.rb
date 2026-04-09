@@ -5,20 +5,20 @@
 class Launchpad < Formula
   desc "Launchpad CLI — deploy apps to the PaaS platform"
   homepage "https://github.com/DND-IT/launchpad"
-  version "0.4.2"
+  version "0.4.3"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.2/launchpad_0.4.2_darwin_amd64.tar.gz"
-      sha256 "995062e8a5964fbb03b4331b5ff50429eeffc6c4daa2218eae6318e52151bc5b"
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.3/launchpad_0.4.3_darwin_amd64.tar.gz"
+      sha256 "b90777b92af247133babecb3374d2a661ffcc2aa39e5d4a58b3d3d79564bf710"
 
       define_method(:install) do
         bin.install "launchpad"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.2/launchpad_0.4.2_darwin_arm64.tar.gz"
-      sha256 "742c155e1bdee58a1c029d56b1242a6dbb39d9ec15bac75c3ae963e739916eff"
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.3/launchpad_0.4.3_darwin_arm64.tar.gz"
+      sha256 "47a80da3ddd4e1f54d72e3c0dd96dfee42e267cc71d1a4ae4420bc58943531c0"
 
       define_method(:install) do
         bin.install "launchpad"
@@ -28,15 +28,15 @@ class Launchpad < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.2/launchpad_0.4.2_linux_amd64.tar.gz"
-      sha256 "9a7cc7fb467c3f3e874ae85280fa968c991b674c2e12391906189c60a819ced5"
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.3/launchpad_0.4.3_linux_amd64.tar.gz"
+      sha256 "8a5efd2ea2366cde9ae5928533b6c3f2469b89588549e5ffcf41cc7b31f5b657"
       define_method(:install) do
         bin.install "launchpad"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.2/launchpad_0.4.2_linux_arm64.tar.gz"
-      sha256 "210249374df560ef42a7d4df62aef584903a56d2dcd5d4de2c8402c9dcbcfcf4"
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.3/launchpad_0.4.3_linux_arm64.tar.gz"
+      sha256 "c261bdee7e31c36b6d046232eb5f30bbebb33f86336cba80849b6e2ba4370c63"
       define_method(:install) do
         bin.install "launchpad"
       end
