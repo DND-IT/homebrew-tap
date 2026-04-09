@@ -1,8 +1,16 @@
 class GhAuthDownloadStrategy < CurlDownloadStrategy
   def initialize(url, name, version, **meta)
     super
-    @token = `gh auth token 2>/dev/null`.chomp
-    raise "Not authenticated with gh CLI. Run: gh auth login" if @token.empty?
+    @token = ENV["GH_TOKEN"] || ENV["GITHUB_TOKEN"] || gh_cli_token
+    raise "Not authenticated. Set GH_TOKEN or run: gh auth login" if @token.to_s.empty?
+  end
+
+  def gh_cli_token
+    [Utils::Which.which("gh"), "/opt/homebrew/bin/gh", "/usr/local/bin/gh"].compact.each do |gh|
+      token = `#{gh} auth token 2>/dev/null`.chomp
+      return token unless token.empty?
+    end
+    nil
   end
 
   def _fetch(url:, resolved_url:, timeout:)
@@ -18,19 +26,19 @@ end
 class Launchpad < Formula
   desc "Launchpad CLI — deploy apps to the PaaS platform"
   homepage "https://github.com/DND-IT/launchpad"
-  version "0.4.7"
+  version "0.4.8"
 
   depends_on "gh"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.7/launchpad_0.4.7_darwin_arm64.tar.gz",
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.8/launchpad_0.4.8_darwin_arm64.tar.gz",
           using: GhAuthDownloadStrategy
-      sha256 "6d4b6b2ec53503ce8a10b2f32460a774a659dc6d452852a7c5bb1e5716895dcc"
+      sha256 "0c8ab171ff0dd225ddcb55131674aad963e1719039bf6faa54ab68d958959e6b"
     else
-      url "https://github.com/DND-IT/launchpad/releases/download/0.4.7/launchpad_0.4.7_darwin_amd64.tar.gz",
+      url "https://github.com/DND-IT/launchpad/releases/download/0.4.8/launchpad_0.4.8_darwin_amd64.tar.gz",
           using: GhAuthDownloadStrategy
-      sha256 "97ec268c4d4a52f41356a09cedb6bab9f5ce104f301d0ee8e4bee73b75afa659"
+      sha256 "713712df33dcf8a64e3cc324e130aad7c283c4e49c517e2b189ac1275c42c2b6"
     end
   end
 
