@@ -23,19 +23,19 @@ end
 class Launchpad < Formula
   desc "Launchpad CLI — deploy apps to the PaaS platform"
   homepage "https://github.com/DND-IT/launchpad"
-  version "0.33.0"
+  version "0.34.0"
 
   depends_on "gh"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/launchpad/releases/download/0.33.0/launchpad_0.33.0_darwin_arm64.tar.gz",
+      url "https://github.com/DND-IT/launchpad/releases/download/0.34.0/launchpad_0.34.0_darwin_arm64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "647dbc2b4ba9992a5b8eed55c62631e9ada96bc6ea68e016d551ddf80ff5d2f3"
+      sha256 "26e82aae92278c8dfccd81aa41b632595fe6b133d228cb73788c712e6566fdb9"
     else
-      url "https://github.com/DND-IT/launchpad/releases/download/0.33.0/launchpad_0.33.0_darwin_amd64.tar.gz",
+      url "https://github.com/DND-IT/launchpad/releases/download/0.34.0/launchpad_0.34.0_darwin_amd64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "8b11bdb2efb565ab6f2dba4cb888000259b5051baf80a4a375d6cd78d65b57c3"
+      sha256 "5060cfacfb0faba267552aeb9b4a3b0bf58fdf00d184ee7f4c08e710a313703a"
     end
   end
 
