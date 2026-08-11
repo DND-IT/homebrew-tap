@@ -23,8 +23,8 @@ class GhReleaseDownloadStrategy < AbstractDownloadStrategy
   end
 end
 
-class TokenAnzeiger < Formula
-  desc "Terminal dashboard for AI token usage and cost"
+class TokenAnzeigerWeb < Formula
+  desc "Browser dashboard for AI token usage and cost (token-anzeiger)"
   homepage "https://github.com/DND-IT/token-anzeiger"
   version "0.1.1"
 
@@ -32,39 +32,39 @@ class TokenAnzeiger < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.1/tokenanzeiger_0.1.1_darwin-arm64.tar.gz",
+      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.1/tokenanzeiger-web_0.1.1_darwin-arm64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "90db7abc0cc0dece6ec7e4c1f8a9519e496996a084638dd63ba0f93c478efce9"
+      sha256 "b4df13abd7475f2e7c4e90d76790965c0d25de55b2a82663e03e2c81288504e9"
     else
-      odie "token-anzeiger only ships Apple Silicon macOS builds"
+      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.1/tokenanzeiger-web_0.1.1_darwin-x64.tar.gz",
+          using: GhReleaseDownloadStrategy
+      sha256 "21aea9bbfcc01bc2cb3277489cd9e4a27fe87b8e40e1688b1035b64ed8193986"
     end
   end
 
   on_linux do
-    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.1/tokenanzeiger_0.1.1_linux-x64.tar.gz",
+    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.1/tokenanzeiger-web_0.1.1_linux-x64.tar.gz",
         using: GhReleaseDownloadStrategy
-    sha256 "d9736167dad21128578dda079a0473f59c1962e78c45ce30a65f01ec400a59da"
+    sha256 "a1624bb5b2775e225ed5ab4bac4850f41daa21a188a079fdd794fdb1a516751d"
   end
 
   def install
-    bin.install "tokenanzeiger"
+    bin.install "tokenanzeiger-web"
   end
 
   def caveats
     <<~EOS
-      token-anzeiger reports AI usage to the team dashboard by default.
+      Serves the same usage data as token-anzeiger in a browser.
 
-      See exactly what your machine would send:
-        tokenanzeiger --telemetry-dry-run
+      tokenanzeiger-web               # http://127.0.0.1:4646
+      PORT=8080 tokenanzeiger-web     # custom port
+      HOST=0.0.0.0 tokenanzeiger-web  # expose beyond localhost
 
-      Disable it permanently by pressing s in the app, or for one run with
-        tokenanzeiger --no-telemetry
-
-      Claude profiles marked "personal": true are never reported.
+      Display-only: never sends telemetry.
     EOS
   end
 
   test do
-    assert_match "tokenanzeiger", shell_output("#{bin}/tokenanzeiger --help")
+    assert_predicate bin/"tokenanzeiger-web", :exist?
   end
 end
