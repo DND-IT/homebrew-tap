@@ -26,26 +26,26 @@ end
 class TokenAnzeigerWeb < Formula
   desc "Browser dashboard for AI token usage and cost (token-anzeiger)"
   homepage "https://github.com/DND-IT/token-anzeiger"
-  version "0.1.2"
+  version "0.2.0"
 
   depends_on "gh"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.2/tokenanzeiger-web_0.1.2_darwin-arm64.tar.gz",
+      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.2.0/tokenanzeiger-web_0.2.0_darwin-arm64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "9bee67325e61bec92ff3d140388afb6ee589efdddfeb91270a5d6612d251a161"
+      sha256 "ea963d6ffeaa58d4ee7e34062a61323efcec30797f05e688d48cc696ad7d7e34"
     else
-      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.2/tokenanzeiger-web_0.1.2_darwin-x64.tar.gz",
+      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.2.0/tokenanzeiger-web_0.2.0_darwin-x64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "a1af592b300216ece131bc590299dc56406faf40fb1ab521da5e144658b3e6ba"
+      sha256 "3193070ce93de182418ba72d8e92451667afbacde1bd1ac0f80d19c90df409cf"
     end
   end
 
   on_linux do
-    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.1.2/tokenanzeiger-web_0.1.2_linux-x64.tar.gz",
+    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.2.0/tokenanzeiger-web_0.2.0_linux-x64.tar.gz",
         using: GhReleaseDownloadStrategy
-    sha256 "64e1a9580ecede5c2a7a43cac3b0a3b0fe9fafd2d82ce06eecc6eb165207d1ae"
+    sha256 "036f21587d8b0b2b59a91cd8139857f680ca9cc49a403e3373b5cbbd3c8f5a10"
   end
 
   def install
