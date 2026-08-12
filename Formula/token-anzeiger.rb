@@ -24,26 +24,26 @@ class GhReleaseDownloadStrategy < AbstractDownloadStrategy
 end
 
 class TokenAnzeiger < Formula
-  desc "Terminal dashboard for AI token usage and cost"
+  desc "Terminal and browser dashboard for AI token usage and cost"
   homepage "https://github.com/DND-IT/token-anzeiger"
-  version "0.2.0"
+  version "0.3.0"
 
   depends_on "gh"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.2.0/tokenanzeiger_0.2.0_darwin-arm64.tar.gz",
+      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.3.0/tokenanzeiger_0.3.0_darwin-arm64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "d69250825b2aa167dd74197bbab2a3e4361e6f1f4693cf9adc5b1346125e5bc7"
+      sha256 "96f835502e05abaa077b1b5dc7666dc4c2b26e2c953ab487931e8477a6b22820"
     else
       odie "token-anzeiger only ships Apple Silicon macOS builds"
     end
   end
 
   on_linux do
-    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.2.0/tokenanzeiger_0.2.0_linux-x64.tar.gz",
+    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.3.0/tokenanzeiger_0.3.0_linux-x64.tar.gz",
         using: GhReleaseDownloadStrategy
-    sha256 "3754d694abaaaa2067ec8ffdcf0bb40b3b39be1d71d09ba429fb939e4379763e"
+    sha256 "4f556ea68b10dbf82b055c9f59e941da0d8cf32ac87060cfc89a324d3239679f"
   end
 
   def install
@@ -61,6 +61,13 @@ class TokenAnzeiger < Formula
         tokenanzeiger --no-telemetry
 
       Claude profiles marked "personal": true are never reported.
+
+      The browser dashboard serves the same data from this binary:
+        tokenanzeiger web                # http://127.0.0.1:4646
+        tokenanzeiger web --port 8080    # custom port
+        HOST=0.0.0.0 tokenanzeiger web   # expose beyond localhost
+
+      Web mode is display-only: it never sends telemetry.
     EOS
   end
 
