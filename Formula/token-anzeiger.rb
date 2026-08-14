@@ -26,24 +26,24 @@ end
 class TokenAnzeiger < Formula
   desc "Terminal and browser dashboard for AI token usage and cost"
   homepage "https://github.com/DND-IT/token-anzeiger"
-  version "0.3.1"
+  version "0.3.2"
 
   depends_on "gh"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.3.1/tokenanzeiger_0.3.1_darwin-arm64.tar.gz",
+      url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.3.2/tokenanzeiger_0.3.2_darwin-arm64.tar.gz",
           using: GhReleaseDownloadStrategy
-      sha256 "60acac771268876fa899e46d05d35dac567ac71d965a78c68448f239af355eb5"
+      sha256 "056c6d4de7688c75b0ce55e95e52626c532166f8d5e992763595b1d3a70c5600"
     else
       odie "token-anzeiger only ships Apple Silicon macOS builds"
     end
   end
 
   on_linux do
-    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.3.1/tokenanzeiger_0.3.1_linux-x64.tar.gz",
+    url "https://github.com/DND-IT/token-anzeiger/releases/download/v0.3.2/tokenanzeiger_0.3.2_linux-x64.tar.gz",
         using: GhReleaseDownloadStrategy
-    sha256 "c639f16c107f9d0f24c949043e62d39efb251367988d69d1867469827e5c495b"
+    sha256 "12695e3bf1e3ffa7d7af0a1f8f80a772ddd61c086b16628cf4e2bf21188fa587"
   end
 
   def install
