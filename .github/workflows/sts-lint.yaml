@@ -1,0 +1,18 @@
+name: sts-lint
+
+on:
+  pull_request:
+    paths:
+      - .github/chainguard/**
+      - .github/workflows/sts-lint.yaml
+
+permissions:
+  contents: read
+
+jobs:
+  sts-lint:
+    name: Check the token broker trust policies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: DND-IT/tamci/actions/sts-lint@v0
